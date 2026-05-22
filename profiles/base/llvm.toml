@@ -1,0 +1,18 @@
+# Base profile: LLVM defaults that downstream profiles can extend.
+# Phase 2 seed (Unit 2.4 / D-20260523-018): the format keys mirror the
+# adapter's BasedOnStyle: LLVM emission. Naming / linter groups are
+# intentionally NOT enabled here — each project profile picks them up
+# explicitly so a `cppstyle init --import` outcome is auditable.
+
+extends = []
+
+[target]
+triple = "x86_64-apple-darwin"
+
+[rules."cpp.format.indent-width"]
+[rules."cpp.format.indent-width".options]
+value = 2
+
+[rules."cpp.format.column-limit"]
+[rules."cpp.format.column-limit".options]
+value = 80
