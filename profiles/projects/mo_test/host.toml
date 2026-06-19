@@ -1,6 +1,12 @@
 # mo_test host profile.
 # Format rules: cppstyle 0.1.0-rc.1 clang-format adapter support.
 # Analyzer (P4 Phase A): bugprone minimal import from UMI host profile.
+# Analyzer (P4b Phase B): cppcore 段階 import — UMI host profile
+# (profiles/projects/umi/host.toml) から bounds-array-to-pointer-decay /
+# owning-memory / special-member-functions / macro-usage を warning severity で
+# 取り込む。macro-usage の AllowedRegexp は UMI 側 (^UMI_.*) に G3N3 firmware の
+# マクロ接頭辞を加えた ^(UMI_|G3N3_).*。UMI 側に存在しない cppcore.pro-type-member-init /
+# const-cast は意図的に除外する。
 # Legacy .clang-format options without adapter mapping (AlignConsecutiveMacros,
 # TypenameMacros, BasedOnStyle, etc.) are intentionally omitted until cppstyle
 # gains the corresponding cpp.format.* rules.
@@ -17,6 +23,24 @@ severity = "error"
 warnings_as_errors = true
 [rules."cpp.bugprone.all".options]
 disabled_checks = ["bugprone-easily-swappable-parameters"]
+
+[rules."cpp.cppcore.bounds-array-to-pointer-decay"]
+enabled = true
+severity = "warning"
+
+[rules."cpp.cppcore.owning-memory"]
+enabled = true
+severity = "warning"
+
+[rules."cpp.cppcore.special-member-functions"]
+enabled = true
+severity = "warning"
+
+[rules."cpp.cppcore.macro-usage"]
+enabled = true
+severity = "warning"
+[rules."cpp.cppcore.macro-usage".options]
+check_options = { AllowedRegexp = "^(UMI_|G3N3_).*" }
 
 [rules."cpp.format.column-limit"]
 [rules."cpp.format.column-limit".options]
