@@ -4,11 +4,6 @@
 # Analyzer (P4b Phase B): cppcore phase import — from UMI host profile
 # (profiles/projects/umi/host.toml): bounds-array-to-pointer-decay /
 # owning-memory / special-member-functions / macro-usage at warning severity.
-# Analyzer (P4b Phase C step1): modernize.all at warning severity — mirrors UMI
-# host profile exclusion list: use-trailing-return-type / use-std-print /
-# return-braced-init-list are excluded as over-aggressive for this codebase.
-# naming / readability / performance are deferred to Phase C step2+ (high
-# finding volume; imported separately to allow focused burndown).
 # Analyzer (Track F-rollout): FW_ and BUILD_ prefixes removed from
 # AllowedRegexp — all FW_/BUILD_ macros have been eliminated from mo_test
 # source (confirmed 0 occurrences via git grep). RAMFUNC is retained because
@@ -51,16 +46,6 @@ enabled = true
 severity = "warning"
 [rules."cpp.cppcore.macro-usage".options]
 check_options = { AllowedRegexp = "^(UMI_|G3N3_|RAMFUNC).*" }
-
-[rules."cpp.modernize.all"]
-enabled = true
-severity = "warning"
-[rules."cpp.modernize.all".options]
-disabled_checks = [
-  "modernize-use-trailing-return-type",
-  "modernize-use-std-print",
-  "modernize-return-braced-init-list",
-]
 
 [rules."cpp.format.column-limit"]
 [rules."cpp.format.column-limit".options]
