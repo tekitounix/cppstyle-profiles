@@ -1,0 +1,40 @@
+api_version = "cppstyle/v1"
+kind = "StyleDependency"
+style_source = "@PROFILE_SOURCE@"
+
+[targets.host]
+profile = "profiles/projects/umi/host.toml"
+default = true
+[targets.host.scope]
+path_include = ["packages/**", "examples/**", "tests/**", "web/**", "tools/**"]
+path_exclude = ["vendor/**", "external/**", "build/**", ".cppstyle/**"]
+
+[targets.stm32]
+profile = "profiles/projects/umi/stm32.toml"
+[targets.stm32.scope]
+path_include = ["packages/**", "platforms/boards/st/**", "examples/**", "tests/hardware/**"]
+path_exclude = ["vendor/**", "external/**", "build/**", ".cppstyle/**"]
+
+[targets.rp235x]
+profile = "profiles/projects/umi/rp235x.toml"
+[targets.rp235x.scope]
+path_include = ["packages/**", "platforms/boards/rp/**", "examples/**", "tests/hardware/**"]
+path_exclude = ["vendor/**", "external/**", "build/**", ".cppstyle/**"]
+
+[targets.wasm]
+profile = "profiles/projects/umi/wasm.toml"
+[targets.wasm.scope]
+path_include = ["packages/**", "examples/hosts/headless_webhost/**", "web/**"]
+path_exclude = ["vendor/**", "external/**", "build/**", ".cppstyle/**"]
+
+[compdb]
+mode = "per-target"
+
+[compdb.per_target]
+host = ".cppstyle/compdb/host/compile_commands.json"
+stm32 = ".cppstyle/compdb/stm32/compile_commands.json"
+rp235x = ".cppstyle/compdb/rp235x/compile_commands.json"
+wasm = ".cppstyle/compdb/wasm/compile_commands.json"
+
+[clangd]
+mode = "switch"

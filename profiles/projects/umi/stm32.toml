@@ -1,0 +1,4 @@
+# UMI STM32 leaf. One logical target contains multiple Cortex-M triples, so
+# cppstyle.toml and the compile database remain the source of ABI selection.
+
+extends = ["common.toml"]
