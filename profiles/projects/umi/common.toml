@@ -131,3 +131,23 @@ enabled = true
 severity = "warning"
 [rules."cpp.readability.all".options]
 disabled_checks = ["readability-convert-member-functions-to-static", "readability-magic-numbers", "readability-identifier-length"]
+
+# ---- Exception-kind vocabulary (D-20260722-001 §4.1 / P2) ----
+# Kinds are the policy ceiling for consumer affiliations: an affiliation can
+# only suppress rules listed in its kind's disabled_checks, within caps.
+# Declared here (create-only merge) as shared vocabulary for all UMI targets.
+
+[kinds.mmio-fixed-address]
+disabled_checks = ["clang-analyzer-core.FixedAddressDereference"]
+max_files = 40
+reason = "Memory-mapped IO requires dereferencing architecture-defined fixed addresses; the analyzer cannot know the address map is hardware truth."
+
+[kinds.abi-implementation]
+disabled_checks = ["bugprone-reserved-identifier"]
+max_files = 10
+reason = "ABI entry points (__cxa_*, _start, ...) must define reserved identifiers by contract with the toolchain/linker."
+
+[kinds.startup-runtime]
+disabled_checks = ["clang-analyzer-security.ArrayBound"]
+max_files = 5
+reason = "crt0 initializes .bss/.data across linker-script symbol ranges the analyzer cannot bound."
