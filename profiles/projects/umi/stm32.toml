@@ -9,9 +9,13 @@ extends = ["common.toml"]
 [[compensations]]
 id = "FP-001"
 check = "bugprone-dynamic-static-initializers"
+kind = "upstream-false-positive"
+llvm_versions = ">=18, <23"
+# derived_from_findings は P2 fingerprint_v1 実装後に実 finding から採取 (空 = WARN 扱い)
+# upstream_issue 未確定 (未 file) → expires は 90 日 cap (v3.11 §4.2)
 reason = "upstream FP: fires on constexpr-initialized statics in headers under -fno-threadsafe-statics (constexpr guarantees constant initialization; template-dependent initializers are misclassified)"
 repro = "compensations/FP-001/repro.hh"
 expected = "compensations/FP-001/expected.txt"
 repro_flags = ["-x", "c++-header", "-std=c++20", "-fno-threadsafe-statics"]
 owner = "@tekitounix"
-expires = "2027-07-22"
+expires = "2026-10-20"
