@@ -1,0 +1,2 @@
+warning: static variable 'can_read' may be dynamically initialized in this header file [bugprone-dynamic-static-initializers]
+warning: static variable 'write_behavior' may be dynamically initialized in this header file [bugprone-dynamic-static-initializers]

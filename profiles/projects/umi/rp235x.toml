@@ -1,3 +1,16 @@
 # UMI RP235x leaf. Compiler and ABI flags come from the real compile database.
 
 extends = ["common.toml"]
+
+# A-class compensation (D-20260722-001 §4.2). Evidence-backed non-adoption of
+# exactly one check on this target; consumers opt in via
+# [governance] accepted_compensations.
+[[compensations]]
+id = "FP-001"
+check = "bugprone-dynamic-static-initializers"
+reason = "upstream FP: fires on constexpr-initialized statics in headers under -fno-threadsafe-statics (constexpr guarantees constant initialization; template-dependent initializers are misclassified)"
+repro = "compensations/FP-001/repro.hh"
+expected = "compensations/FP-001/expected.txt"
+repro_flags = ["-x", "c++-header", "-std=c++20", "-fno-threadsafe-statics"]
+owner = "@tekitounix"
+expires = "2027-07-22"
