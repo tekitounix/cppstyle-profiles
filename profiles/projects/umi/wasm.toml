@@ -1,3 +1,28 @@
 # UMI WebAssembly leaf. The real emcc compile database owns target flags.
 
 extends = ["common.toml"]
+
+# A-class compensation (D-20260722-001 §4.2). Same upstream FP class as the
+# stm32/rp235x leaves: constexpr-initialized statics in headers are
+# misclassified as dynamically initialized. The wasm lane binds its own
+# finding set (shared_state.hh ring-buffer mask + wasm.hh adapter caps);
+# consumers opt in via [governance] accepted_compensations.
+[[compensations]]
+id = "FP-001"
+check = "bugprone-dynamic-static-initializers"
+kind = "upstream-false-positive"
+llvm_versions = ">=18, <23"
+derived_from_findings = [
+  "sha256:ab196fc0e4b3a35f3de1c4be4be86e1589b71b6b4a243e7f95a67c62154b0c7e",
+  "sha256:1e92fd2c317289fcc9699210ed17a0b7c591fd28b4fbb7a96e2ece6d4af864dd",
+  "sha256:29edd409727c5c8883bf527b2a6311f9acfc578fbce7372686c784b336bd2958",
+]
+# upstream_issue 未確定 (未 file) → expires は 90 日 cap (v3.11 §4.2)
+reason = "upstream FP: fires on constexpr-initialized statics in headers (constexpr guarantees constant initialization; template-dependent initializers are misclassified)"
+repro = "compensations/FP-001/repro.hh"
+expected = "compensations/FP-001/expected.txt"
+negative_corpus = ["compensations/FP-001/negative.hh"]
+repro_flags = ["-x", "c++-header", "-std=c++20", "-fno-threadsafe-statics"]
+code_pattern = ["constexpr"]
+owner = "@tekitounix"
+expires = "2026-10-20"
