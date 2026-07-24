@@ -3,12 +3,13 @@
 extends = ["common.toml"]
 
 # A-class compensation (D-20260722-001 §4.2). Same upstream FP class as the
-# stm32/rp235x leaves: constexpr-initialized statics in headers are
-# misclassified as dynamically initialized. The wasm lane binds its own
-# finding set (shared_state.hh ring-buffer mask + wasm.hh adapter caps);
-# consumers opt in via [governance] accepted_compensations.
+# stm32/rp235x leaves' FP-001 (evidence assets shared), but compensation ids
+# must carry identical contracts across leaves — the wasm lane binds its own
+# finding set (shared_state.hh ring-buffer mask + wasm.hh adapter caps), so
+# it gets its own id. Consumers opt in via [governance]
+# accepted_compensations.
 [[compensations]]
-id = "FP-001"
+id = "FP-002"
 check = "bugprone-dynamic-static-initializers"
 kind = "upstream-false-positive"
 llvm_versions = ">=18, <23"
