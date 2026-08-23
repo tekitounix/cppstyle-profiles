@@ -1,0 +1,3 @@
+# umiui wasm leaf (Emscripten でビルドされるシミュレータ TU)。
+# 規約は host と同一。compdb の target 振り分けで TU を分けるためだけに存在する。
+extends = ["common.toml"]

@@ -1,0 +1,2 @@
+# umiui host leaf. host triple はここに固定しない (macOS arm64/x86_64 と Linux で使う)。
+extends = ["common.toml"]
