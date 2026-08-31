@@ -7,8 +7,10 @@
 # Analyzer (P4b Phase C step1): modernize.all at warning severity — mirrors UMI
 # host profile exclusion list: use-trailing-return-type / use-std-print /
 # return-braced-init-list are excluded as over-aggressive for this codebase.
-# naming / readability / performance are deferred to Phase C step2+ (high
-# finding volume; imported separately to allow focused burndown).
+# readability / performance remain deferred to Phase C step2+ (high finding
+# volume). Member naming is enabled below because UMI's no-prefix/suffix rule
+# is a local, deterministic contract and must catch `member_`/`m_member` at
+# the same time as the board migration.
 # Analyzer (Track F-rollout): FW_ and BUILD_ prefixes removed from
 # AllowedRegexp — all FW_/BUILD_ macros have been eliminated from mo_test
 # source (confirmed 0 occurrences via git grep). RAMFUNC is retained because
@@ -51,6 +53,12 @@ enabled = true
 severity = "warning"
 [rules."cpp.cppcore.macro-usage".options]
 check_options = { AllowedRegexp = "^(UMI_|G3N3_|RAMFUNC).*" }
+
+[rules."cpp.naming.member"]
+enabled = true
+severity = "warning"
+[rules."cpp.naming.member".options]
+check_options = { MemberPrefix = "", MemberSuffix = "", PrivateMemberPrefix = "", PrivateMemberSuffix = "", ProtectedMemberPrefix = "", ProtectedMemberSuffix = "", PublicMemberPrefix = "", PublicMemberSuffix = "" }
 
 [rules."cpp.modernize.all"]
 enabled = true
