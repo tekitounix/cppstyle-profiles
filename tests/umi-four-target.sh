@@ -58,6 +58,12 @@ for target in host stm32 rp235x wasm; do
   done
 done
 
+if ! rg -q "readability-identifier-naming.PrivateMemberSuffix.*value: ''" \
+  "$case_dir/.cppstyle/generated/clang-tidy/host/.clang-tidy"; then
+  echo "missing no-trailing-member-suffix naming policy" >&2
+  exit 1
+fi
+
 for target in stm32 rp235x wasm; do
   cmp "$case_dir/.cppstyle/generated/clang-format/host/style.yaml" \
     "$case_dir/.cppstyle/generated/clang-format/$target/style.yaml"
