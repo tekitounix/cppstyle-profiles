@@ -58,6 +58,12 @@ for target in host stm32 rp235x wasm; do
   done
 done
 
+if ! rg --quiet '^HeaderFilterRegex: "\.\*"$' \
+  "$case_dir/.cppstyle/generated/clang-tidy/host/.clang-tidy"; then
+  echo "shared UMI policy must not encode a repository layout" >&2
+  exit 1
+fi
+
 for target in stm32 rp235x wasm; do
   cmp "$case_dir/.cppstyle/generated/clang-format/host/style.yaml" \
     "$case_dir/.cppstyle/generated/clang-format/$target/style.yaml"

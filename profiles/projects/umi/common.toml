@@ -6,7 +6,10 @@
 extends = []
 
 [scan]
-header_filter_regex = "^(packages|platforms|examples|tests|web)/.*"
+# Repository ownership and vendor/generated exclusions belong to the consumer
+# target scope. Keep the shared policy independent of each library's layout.
+# cppstyle check intersects this policy with explicit owned source roots.
+header_filter_regex = ".*"
 system_headers = false
 
 [rules."cpp.analyzer.all"]
