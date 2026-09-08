@@ -15,7 +15,7 @@ extends = []
 # 誤りだからである。C ABI の型名は snake_case が慣例で、しかも既に凍結されている。
 # このヘッダの健全性は tests/test_abi_c.c が担保する — C11 でコンパイルし、全 POD の
 # 全フィールドの offset と size を static assert で固定している。
-header_filter_regex = "^(include/umiui/(render|ui|fx3d)/|sim/|tests/).*"
+header_filter_regex = "^(include/umiui/(render|ui|fx3d|logic)/|sim/|tests/).*"
 system_headers = false
 
 [rules."cpp.analyzer.all"]
