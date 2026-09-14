@@ -2,7 +2,7 @@ schema_version = 1
 
 [[packages]]
 source = "github.com/tekitounix/okite"
-revision = "6c56a9ee029f494476c7ee6e1f4719a94c5d1613"
+revision = "56740b46f5e20289cd36cec8b50384a5a40448d4"
 rules = ["docs"]
 skills = "skills"
 default_publication = "none"
