@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "required_paths": [
+    "README.md",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "LICENSE",
+    ".gitignore",
+    ".tazuna/config.toml",
+    ".tazuna/tree-contract.json",
+    "profiles/base/llvm.toml",
+    "tests/umi-four-target.sh"
+  ],
+  "allowed_tracked_root": [
+    ".gitignore",
+    ".tazuna",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "LICENSE",
+    "README.md",
+    "compensations",
+    "profiles",
+    "tests"
+  ],
+  "plans_layout": "group-slug",
+  "interior_anti_patterns": {
+    "forbidden_plan_names": [
+      "active",
+      "audits",
+      "backlog.md",
+      "completed",
+      "done",
+      "human-actions.md",
+      "proposals",
+      "roadmap.md",
+      "status.md"
+    ],
+    "forbidden_path_prefixes": [
+      ".github/workflows/",
+      "docs/_migration/",
+      "docs/archive/",
+      "docs/decisions/",
+      "plans/active/",
+      "plans/audits/",
+      "plans/completed/",
+      "plans/proposals/"
+    ],
+    "forbidden_docs_status": true,
+    "forbidden_changelog": true
+  },
+  "tmp_only_at_root": true,
+  "require_plan_until": true,
+  "require_plan_sidecar_reachability": true,
+  "exceptions": []
+}
