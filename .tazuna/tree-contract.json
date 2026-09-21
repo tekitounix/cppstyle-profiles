@@ -3,7 +3,6 @@
   "required_paths": [
     "README.md",
     "AGENTS.md",
-    "CLAUDE.md",
     "LICENSE",
     ".gitignore",
     ".tazuna/config.toml",
@@ -15,7 +14,6 @@
     ".gitignore",
     ".tazuna",
     "AGENTS.md",
-    "CLAUDE.md",
     "LICENSE",
     "README.md",
     "compensations",
