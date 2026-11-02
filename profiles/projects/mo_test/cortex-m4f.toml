@@ -1,0 +1,116 @@
+# mo_test Cortex-M4F profile.
+#
+# The compile database selects the concrete Cortex-M triple.  This leaf keeps
+# the full UMI STM32 rule set while applying the board-owned macro namespace
+# used by the current G3N3 PAL.  Configuration/feature conditionals are still
+# enforced by mo_test's source-policy detector; this regexp is only the
+# clang-tidy macro-definition compatibility boundary.
+
+extends = []
+
+[scan]
+header_filter_regex = "^(packages|platforms|tools)/.*"
+system_headers = false
+
+[rules."cpp.analyzer.all"]
+enabled = true
+severity = "error"
+warnings_as_errors = true
+
+[rules."cpp.bugprone.all"]
+enabled = true
+severity = "error"
+warnings_as_errors = true
+[rules."cpp.bugprone.all".options]
+disabled_checks = ["bugprone-easily-swappable-parameters"]
+
+[rules."cpp.cppcore.bounds-array-to-pointer-decay"]
+enabled = true
+severity = "warning"
+
+[rules."cpp.cppcore.owning-memory"]
+enabled = true
+severity = "warning"
+
+[rules."cpp.cppcore.special-member-functions"]
+enabled = true
+severity = "warning"
+
+[rules."cpp.cppcore.macro-usage"]
+enabled = true
+severity = "warning"
+[rules."cpp.cppcore.macro-usage".options]
+check_options = { AllowedRegexp = "^(UMI_|G3N3_|RAMFUNC).*" }
+
+[rules."cpp.misc.all"]
+enabled = true
+severity = "warning"
+[rules."cpp.misc.all".options]
+disabled_checks = ["misc-non-private-member-variables-in-classes", "misc-use-internal-linkage"]
+
+[rules."cpp.naming.identifiers"]
+enabled = true
+severity = "warning"
+[rules."cpp.naming.identifiers".options]
+check_options = { ClassCase = "CamelCase", ConceptCase = "CamelCase", ConstexprVariableCase = "lower_case", EnumCase = "CamelCase", EnumConstantCase = "UPPER_CASE", FunctionCase = "lower_case", GlobalVariableCase = "lower_case", MemberCase = "lower_case", MemberPrefix = "", MemberSuffix = "", MethodCase = "lower_case", MethodIgnoredRegexp = "^(operator|~).*", NamespaceCase = "lower_case", ParameterCase = "lower_case", PrivateMemberPrefix = "", PrivateMemberSuffix = "", ProtectedMemberPrefix = "", ProtectedMemberSuffix = "", PublicMemberPrefix = "", PublicMemberSuffix = "", ScopedEnumConstantCase = "UPPER_CASE", StaticVariableCase = "lower_case", StructCase = "CamelCase", StructIgnoredRegexp = "^([A-Z][A-Z0-9_]*|promise_type|.*_t)$", TypeAliasCase = "CamelCase", TypeAliasIgnoredRegexp = "^([A-Z][A-Z0-9_]*|.*_t|type|value_type)$", TypeCase = "CamelCase", VariableCase = "lower_case" }
+
+[rules."cpp.performance.all"]
+enabled = true
+severity = "warning"
+
+[rules."cpp.performance.move-const-arg"]
+enabled = true
+severity = "error"
+warnings_as_errors = true
+
+[rules."cpp.performance.unnecessary-value-param"]
+enabled = true
+severity = "error"
+warnings_as_errors = true
+
+[rules."cpp.readability.all"]
+enabled = true
+severity = "warning"
+[rules."cpp.readability.all".options]
+disabled_checks = ["readability-convert-member-functions-to-static", "readability-magic-numbers", "readability-identifier-length"]
+
+[rules."cpp.modernize.all"]
+enabled = true
+severity = "warning"
+
+[rules."cpp.format.bin-pack-arguments".options]
+value = false
+
+[rules."cpp.format.bin-pack-parameters".options]
+value = false
+
+[rules."cpp.format.column-limit".options]
+value = 0
+
+[rules."cpp.format.derive-pointer-alignment".options]
+value = false
+
+[rules."cpp.format.include-blocks".options]
+value = "Preserve"
+
+[rules."cpp.format.pointer-alignment".options]
+value = "Left"
+
+[rules."cpp.format.reference-alignment".options]
+value = "Left"
+
+[rules."cpp.format.remove-semicolon".options]
+value = true
+
+[rules."cpp.format.short-functions-on-single-line".options]
+value = "All"
+
+[rules."cpp.format.template-decl-on-own-line".options]
+value = "No"
+
+[rules."cpp.modernize.all".options]
+disabled_checks = [
+  "modernize-use-trailing-return-type",
+  "modernize-use-std-print",
+  "modernize-return-braced-init-list",
+]
